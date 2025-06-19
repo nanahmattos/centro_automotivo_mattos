@@ -1,102 +1,289 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+  <q-layout>
+    <q-header :class="{ 'solid-background': scrolled }" class="header container">
+      <q-toolbar class="justify-center ">
+        <div class="row items-center">
+          <!-- logo -->
+          <div >
+            <q-btn
+              flat
+              no-caps
+              
+              @click="router.push('/')"
+              v-if="!$q.screen.xs"
+              style="padding-left: 0"
+            >
+              <q-img v-if="!scrolled" src="#" style="width: 120px" />
+              <q-img v-else src="#" style="width: 120px" />
+            </q-btn>
+          </div>
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+          <!-- desktop -->
+          <div v-if="!$q.screen.xs">
+            <q-btn-toggle
+              v-model="tab"
+              :toggle-color="toggleColor"
+              flat
+              stretch
+              dense
+              no-caps
+              :options="options"
+              @click="scrollToSection(tab)"
+            />
+          </div>
 
-        <div>Quasar v{{ $q.version }}</div>
+          <!-- mobile -->
+          <div v-else>
+            <q-btn
+              :class="[
+                'active-button',
+                {
+                  'home-button': $route.name === 'home',
+                  scrolled: scrolled,
+                },
+              ]"
+              no-caps
+              flat
+            >
+              Menu
+              <q-icon name="arrow_drop_down" />
+              <q-menu>
+                <q-list dense>
+                  <q-item clickable v-close-popup no-caps>Transportes</q-item>
+                  <q-separator />
+                  <q-item clickable v-close-popup no-caps @click="router.push('/btms')">
+                    <q-item-section> BTMS </q-item-section>
+                  </q-item>
+                  <q-item clickable v-close-popup no-caps @click="router.push('/btmstr')">
+                    <q-item-section> BTMS-TR </q-item-section>
+                  </q-item>
+                </q-list>
+              </q-menu>
+            </q-btn>
+          </div>
+        </div>
+        <div>
+          <q-btn
+            no-caps
+            class="button-primary"
+            :class="
+              scrolled || $route.name === 'home' ? 'bg-primary text-white' : 'bg-white text-dark'
+            "
+            @click="openWhatsApp"
+            label="Falar conosco"
+          />
+        </div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
-
-    <q-page-container>
+    <q-page-container style="padding: 0">
       <router-view />
     </q-page-container>
   </q-layout>
+
+  <footer id="contato" class="footer">
+    <div class="row col-xs-12">
+      <div class="col-xs-12 col-sm-6">
+        <h5>Navegação</h5>
+        <ul>
+          <li v-for="(item, index) in options" :key="index">
+            <a @click="scrollToSection(tab)">{{ item.label }}</a>
+          </li>
+        </ul>
+        <h5>Sobre</h5>
+        <p class="q-ma-none">Joana Eni de Mattos - Oficina Mecanica</p>
+        <p>CNPJ: 34.231.646/0001-00</p>
+      </div>
+      <div class="col-xs-12 col-sm-6 footer-item">
+        <h5>Contato</h5>
+        <p>
+          Rua José Rosa, 289
+          <br />
+          Bairro Belo Horizonte, Campo Grande - MS, 79090-201
+        </p>
+        <p>centroautomotivomattos@gmail.com</p>
+        <div class="row items-center">
+          <q-img src="../assets/icon_wpp.webp" style="width: 20px" fit="contain" />
+          <p class="q-ma-none q-pl-xs">(67) 3351-6211</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center q-mt-lg" style="font-size: 12px">
+      <p class="q-ma-none">
+        {{ anoAtual }} &copy;Centro Automotivo Mattos - Todos os direitos reservados
+      </p>
+    </div>
+  </footer>
+  <span v-if="scrolled">
+    <div class="button-voltar">
+      <q-btn icon="north" round color="primary" @click.prevent="backHome()" />
+    </div>
+  </span>
+  <span v-if="scrolled">
+    <div class="button-whats">
+      <q-btn round color="green" @click="openWhatsApp">
+        <q-img
+          class="white-filter"
+          src="../assets/icon_wpp.webp"
+          style="width: 20px"
+          fit="contain"
+        />
+      </q-btn>
+    </div>
+  </span>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { useRouter } from 'vue-router'
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
+const toggleColor = ref('white')
+const router = useRouter()
+const anoAtual = ref(new Date().getFullYear())
+const scrolled = ref(false)
+const tab = ref('home')
+const options = [
+  { label: 'Home', value: 'hero' },
+  { label: 'Serviços', value: 'servicos' },
+  { label: 'Contato', value: 'contato' },
 ]
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
 
-const leftDrawerOpen = ref(false)
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value
+const scrollToSection = (id) => {
+  if (['contato'].includes(id)) {
+    scrollToElement(id)
+  }
+
+  if (['home', 'servicos'].includes(id)) {
+    if (router.currentRoute.value.path !== '/') {
+      router.push('/').then(() => {
+        scrollToElement(id)
+      })
+    } else {
+      scrollToElement(id)
+    }
+  } else {
+    scrollToElement(id)
+  }
+}
+
+const scrollToElement = (id) => {
+  const section = document.getElementById(id)
+  const headerOffset = 70 // Altura da header ou o deslocamento desejado
+  if (section) {
+    const elementPosition = section.getBoundingClientRect().top + window.scrollY // Posição do elemento
+    const offsetPosition = elementPosition - headerOffset // Ajusta para o deslocamento
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth',
+    })
+  }
+}
+const handleScroll = () => {
+  scrolled.value = window.scrollY > 50
+  toggleColor.value = scrolled.value ? '#0d1a33' : '#fff'
+}
+const openWhatsApp = () => {
+  if (typeof window !== 'undefined') {
+    window.open('https://wa.me/5567984113872', '_blank')
+  }
+}
+const backHome = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
 }
 </script>
+<style lang="scss" scoped>
+.header {
+  position: fixed;
+  top: 10px;
+  left: 0;
+  //border: 1px solid #fff;
+  background-color: transparent;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #fff;
+  transition: background-color 0.3s ease;
+
+  &.solid-background {
+    border-radius: 15px;
+    border: none;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    color: $dark;
+  }
+  &.home-header {
+    color: $dark;
+  }
+}
+
+.active-button {
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 25px;
+
+  &.scrolled {
+    color: $primary;
+    border-color: $primary;
+  }
+  &.home-button {
+    border-color: $primary;
+    color: $primary;
+  }
+}
+.footer {
+  display: block;
+  color: #fff;
+  background: $dark;
+  padding: 0 15vw;
+  h5 {
+    font-weight: bold;
+    font-size: 18px;
+    color: #fff;
+    padding: 0;
+    margin: 20px 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      margin: 10px 0;
+      a {
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+        &:hover {
+          color: $accent;
+        }
+      }
+    }
+  }
+}
+
+.button-whats {
+  position: fixed;
+  z-index: 1;
+  right: 20px;
+  bottom: 20px;
+}
+.button-voltar {
+  position: fixed;
+  z-index: 1;
+  right: 20px;
+  bottom: 70px;
+}
+.white-filter {
+  width: 20px;
+  filter: brightness(0) invert(1);
+}
+</style>

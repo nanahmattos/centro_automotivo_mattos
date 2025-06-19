@@ -1,1 +1,17 @@
 // app global css in SCSS form
+.container {
+    max-width: 1350px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.button-primary {
+  border-radius: 25px;
+  color: $primary;
+  background-color: #fff;
+
+  &:hover {
+    background-color: $primary;
+    color: #fff;
+  }
+}
