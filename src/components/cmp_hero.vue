@@ -1,6 +1,6 @@
 <template>
   <div class="bg-hero" >
-    <div style="position: relative;">jjjjjjjj</div>
+    <div style="position: relative;"></div>
   </div>
 </template>
 
