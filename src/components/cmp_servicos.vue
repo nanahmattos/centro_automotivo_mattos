@@ -66,32 +66,39 @@ const $q = useQuasar()
 
 const servicos = ref([
   {
+    id: 0,
+    title: 'Motor',
+    texto: 'Diagnóstico, troca de óleo, reparos e manuntenção preventiva do motor',
+    icon: icon_susp,
+  },
+  {
     id: 1,
-    title: 'Serviço 1',
-    texto:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.',
+    title: 'Câmbio automático e manual',
+    texto: 'Troca técnica de óleo e revisão do câmbio automático e manual.',
     icon: icon_susp,
   },
   {
     id: 2,
-    title: 'Serviço 2',
-    texto:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.',
+    title: 'Embreagem',
+    texto: 'Avaliação e substituição do conjunto de embreagem.',
     icon: icon_susp,
   },
-
   {
     id: 3,
-    title: 'Serviço 3',
-    texto:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.',
+    title: 'Injeção eletrônica',
+    texto: 'Leitura via scanner, limpeza e correções da injeção eletônica.',
     icon: icon_susp,
   },
   {
     id: 4,
-    title: 'Serviço 4',
-    texto:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.',
+    title: 'Suspensão e freio',
+    texto: 'Inspeção e reparo do sistema de suspensão e freios.',
+    icon: icon_susp,
+  },
+  {
+    id: 5,
+    title: 'Ar-condicionado automotivo',
+    texto: 'Verificação, carga de gás e higienização do sistema.',
     icon: icon_susp,
   },
 ])

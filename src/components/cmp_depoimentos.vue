@@ -3,7 +3,14 @@
     <p class="text-center">O que estão dizendo ?</p>
     <div class="card-container row">
       <q-card v-for="(depoimento, index) in depoimentos" :key="index" class="card items-center">
-        <q-card-section>
+        <q-card-section class="justify-center flex">
+          <span class="row q-pa-sm" >
+            <q-icon name="star" color="yellow" size="xs" />
+            <q-icon name="star" color="yellow" size="xs" />
+            <q-icon name="star" color="yellow" size="xs" />
+            <q-icon name="star" color="yellow" size="xs" />
+            <q-icon name="star" color="yellow" size="xs" />
+          </span>
           <p>{{ depoimento.title }}</p>
           <p>
             {{ depoimento.texto }}
@@ -19,32 +26,32 @@ import { ref } from 'vue'
 
 const depoimentos = ref([
   {
-    id: 1,
-    title: 'Cliente 1',
+    id: 0,
+    title: 'PÉDDY GÁS',
     texto:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.',
+      'Serviço autamente efciciente, preço justo, oficina 100% confiável, equipe de profissional super educados e prestativos. Este RECOMENDO....PARABÉNS!!!',
     icon: '',
   },
   {
-    id: 2,
-    title: 'Cliente 2',
+    id: 1,
+    title: 'João Araujo',
     texto:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.',
+      'Atendimento excelente, profissionalismo e compromisso com o cliente. Super indico para quem procura um serviço de qualidade e preço justo!! Grato',
     icon: '',
   },
 
   {
-    id: 3,
-    title: 'Cliente 3',
+    id: 2,
+    title: 'Júnior Benites',
     texto:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.',
+      'Profissionais muito corretos nos diagnósticos automotivos....top',
     icon: '',
   },
   {
-    id: 4,
-    title: 'Cliente 4',
+    id: 3,
+    title: 'Rodiney Lima',
     texto:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.',
+      'Ótima reputação, o proprietário Claudiney é um profissional muito sério e honesto!',
     icon: '',
   },
 ])
