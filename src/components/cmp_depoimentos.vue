@@ -1,18 +1,18 @@
 <template>
-  <div>
-    <p class="text-center">O que estão dizendo ?</p>
+  <div class="bg-primary q-py-md">
+    <p class="text-center text-white title-primary">O que estão falando ?</p>
     <div class="card-container row">
       <q-card v-for="(depoimento, index) in depoimentos" :key="index" class="card items-center">
         <q-card-section class="justify-center flex">
-          <span class="row q-pa-sm" >
+          <span class="row q-pa-sm">
             <q-icon name="star" color="yellow" size="xs" />
             <q-icon name="star" color="yellow" size="xs" />
             <q-icon name="star" color="yellow" size="xs" />
             <q-icon name="star" color="yellow" size="xs" />
             <q-icon name="star" color="yellow" size="xs" />
           </span>
-          <p>{{ depoimento.title }}</p>
-          <p>
+          <p class="text-bold">{{ depoimento.title }}</p>
+          <p class="text-secondary">
             {{ depoimento.texto }}
           </p>
         </q-card-section>
@@ -29,7 +29,7 @@ const depoimentos = ref([
     id: 0,
     title: 'PÉDDY GÁS',
     texto:
-      'Serviço autamente efciciente, preço justo, oficina 100% confiável, equipe de profissional super educados e prestativos. Este RECOMENDO....PARABÉNS!!!',
+      'Serviço altamente efciciente, preço justo, oficina 100% confiável, equipe de profissionais super educados e prestativos. Este RECOMENDO....PARABÉNS!!!',
     icon: '',
   },
   {
@@ -43,25 +43,18 @@ const depoimentos = ref([
   {
     id: 2,
     title: 'Júnior Benites',
-    texto:
-      'Profissionais muito corretos nos diagnósticos automotivos....top',
+    texto: 'Profissionais muito corretos nos diagnósticos automotivos....top',
     icon: '',
   },
   {
     id: 3,
     title: 'Rodiney Lima',
-    texto:
-      'Ótima reputação, o proprietário Claudiney é um profissional muito sério e honesto!',
+    texto: 'Ótima reputação, o proprietário Claudiney é um profissional muito sério e honesto!',
     icon: '',
   },
 ])
 </script>
 <style scoped lang="scss">
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
 .card {
   max-width: 200px;
   width: 100%;

@@ -1,163 +1,111 @@
 <template>
-  <div class="bg-grey-9">
-    <!-- <div class="row justify-between items-center">
-      <div class="q-gutter-sm">
-        <q-btn
-          flat
-          class="nav-arrow"
-          @click="prevSlide"
-          :disabled="currentIndex === 0"
-          aria-label="Slide anterior"
-          icon="keyboard_arrow_left"
-        />
-        <q-btn
-          flat
-          class="nav-arrow"
-          @click="nextSlide"
-          aria-label="Slide anterior"
-          icon="keyboard_arrow_right"
-          :disabled="currentIndex === totalSlides - 1"
-        />
-      </div>
-    </div> -->
-    <p class="text-center title-primary text-white">Serviços</p>
+  <div class="bg-grey-9 q-py-md">
+    <p class="text-center title-primary text-white">Principais Serviços</p>
+    <div class="card-container container row">
+      <q-card v-for="(item, id) in servicos" :key="id" class="card items-center">
+        <q-card-section class="justify-center flex q-pa-none">
+          
+            
+            <q-img :src="item.icon" fit="cover" class="card-img" />
+          
 
-    <q-carousel
-      v-model="slide"
-      swipeable
-      animated
-      class="bg-grey-9"
-      transition-prev="scale"
-      transition-next="scale"
-      padding
-      arrows
-      control-color="white"
-      navigation
-      height="auto"
-    >
-      <q-carousel-slide
-        v-for="(group, index) in chunkedItems"
-        :key="index"
-        :name="index"
-        class="row col-12 no-wrap"
-        style="width: 100%"
-      >
-        <q-card v-for="(item, id) in group" :key="id" class="card items-center">
-          <div class="q-pa-sm">
-            <q-img :src="item.icon" style="width: 100px" fit="contain" />
-          </div>
           <div class="content">
             <p class="title-secondary text-white">{{ item.title }}</p>
             <p class="texto-primary text-white">{{ item.texto }}</p>
           </div>
-        </q-card>
-      </q-carousel-slide>
-    </q-carousel>
+        </q-card-section>
+      </q-card>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useQuasar } from 'quasar'
-import { useRoute } from 'vue-router'
-import icon_susp from '../assets/images/suspensao.svg'
-const route = useRoute()
-const $q = useQuasar()
+import { ref } from 'vue'
+import cambio from 'src/assets/images/servicos/cambio.png'
+//import susp from 'src/assets/images/servicos/suspensao_freio.png'
+import ar from 'src/assets/images/servicos/ar.png'
+import embreagem from 'src/assets/images/servicos/embreagem.png'
+import scanner from 'src/assets/images/servicos/scanner.png'
+import motor from 'src/assets/images/servicos/motor.png'
+import freio from 'src/assets/images/servicos/freio.png'
+import suspensao from 'src/assets/images/servicos/suspensao.png'
+import arrefecimento from 'src/assets/images/servicos/arrefecimento.png'
 
 const servicos = ref([
   {
     id: 0,
     title: 'Motor',
     texto: 'Diagnóstico, troca de óleo, reparos e manuntenção preventiva do motor',
-    icon: icon_susp,
+    icon: motor,
   },
   {
     id: 1,
-    title: 'Câmbio automático e manual',
+    title: 'Câmbio Automático',
     texto: 'Troca técnica de óleo e revisão do câmbio automático e manual.',
-    icon: icon_susp,
+    icon: cambio,
   },
   {
     id: 2,
     title: 'Embreagem',
-    texto: 'Avaliação e substituição do conjunto de embreagem.',
-    icon: icon_susp,
+    texto: 'Avaliação do sistema e substituição do kit de embreagem para uma troca suave e eficiente de marchas.',
+    icon: embreagem,
   },
   {
     id: 3,
-    title: 'Injeção eletrônica',
+    title: 'Injeção Eletrônica',
     texto: 'Leitura via scanner, limpeza e correções da injeção eletônica.',
-    icon: icon_susp,
+    icon: scanner,
   },
   {
     id: 4,
-    title: 'Suspensão e freio',
-    texto: 'Inspeção e reparo do sistema de suspensão e freios.',
-    icon: icon_susp,
+    title: 'Freios',
+    texto: 'Troca de pastilhas, discos, fluido e revisão completa do sistema de freio.',
+    icon: freio,
   },
+
   {
     id: 5,
-    title: 'Ar-condicionado automotivo',
-    texto: 'Verificação, carga de gás e higienização do sistema.',
-    icon: icon_susp,
+    title: 'Suspensão',
+    texto: 'Manutenção de amortecedores, molas, bandejas e buchas para garantir estabilidade.',
+    icon: suspensao,
+  },
+  {
+    id: 6,
+    title: 'Sistema de Arrefecimento',
+    texto: 'Limpeza do sistema, troca de aditivo, revisão do radiador e verificação de vazamentos.',
+    icon: arrefecimento,
+  },
+
+  {
+    id: 7,
+    title: 'Ar-condicionado Automotivo',
+    texto: 'Revisão do sistema de ar-condicionado com recarga de gás, limpeza e inspeção técnica.',
+    icon: ar,
   },
 ])
-
-const slide = ref(0)
-const filteredItems = computed(() => servicos.value.filter((item) => item.name !== route.name))
-
-const chunkSize = computed(() => {
-  if ($q.screen.xs) return 1 // até ~599px
-  if ($q.screen.sm) return 2 // 600px a 1023px
-  if ($q.screen.md) return 3 // 1024px a 1439px
-  return 4 // lg e xl
-})
-function chunk(array, size) {
-  const result = []
-  for (let i = 0; i < array.length; i += size) {
-    result.push(array.slice(i, i + size))
-  }
-  return result
-}
-
-const chunkedItems = computed(() => chunk(filteredItems.value, chunkSize.value))
-// const totalSlides = computed(() => chunkedItems.value.length)
-// const currentIndex = computed(() => slide.value)
-
-// const nextSlide = () => {
-//   if (currentIndex.value < totalSlides.value - 1) {
-//     slide.value++
-//   }
-// }
-
-// const prevSlide = () => {
-//   if (currentIndex.value > 0) {
-//     slide.value--
-//   }
-// }
 </script>
 <style scoped lang="scss">
 .card {
-  max-width: 400px;
+  max-width: 300px;
   width: 100%;
   background-color: $primary;
   cursor: pointer;
   margin: 10px;
   display: flex;
-  border-radius: 25px;
   flex-direction: column;
+  border-radius: 25px;
   text-align: center;
   overflow: hidden;
 
-  .image {
-    max-width: 100px;
-    max-height: 200px;
-    height: 100%;
+  .card-img {
     width: 100%;
+    height: 200px;
+    object-fit: cover;
   }
 
   .content {
-    padding: 10px;
+    padding: 10px; 
+    
   }
 }
 </style>

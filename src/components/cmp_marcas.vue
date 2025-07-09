@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
     <div class="container">
-      <p class="text-center">Trabalhamos com peças de primeira linha</p>
+      <p class="text-center text-secondary title-secondary">Trabalhamos com peças de primeira linha</p>
 
       <div class="carousel-wrapper">
         <div class="carousel-track">

@@ -1,20 +1,23 @@
 <template>
   <q-layout>
     <q-header :class="{ 'solid-background': scrolled }" class="header container">
-      <q-toolbar class="justify-center ">
+      <q-toolbar class="justify-between">
         <div class="row items-center">
           <!-- logo -->
-          <div >
+          <div>
             <q-btn
               flat
               no-caps
-              
               @click="router.push('/')"
               v-if="!$q.screen.xs"
               style="padding-left: 0"
+              @click.prevent="backHome()"
             >
-              <q-img v-if="!scrolled" src="#" style="width: 120px" />
-              <q-img v-else src="#" style="width: 120px" />
+              <q-img
+                :src="logo2"
+                style="width: 50px"
+                :class="scrolled ? 'logo-filter-white' : 'logo-normal'"
+              />
             </q-btn>
           </div>
 
@@ -25,6 +28,7 @@
               :toggle-color="toggleColor"
               flat
               stretch
+              style="gap: 5px"
               dense
               no-caps
               :options="options"
@@ -37,7 +41,7 @@
             <q-btn
               :class="[
                 'active-button',
-                {
+                { 
                   'home-button': $route.name === 'home',
                   scrolled: scrolled,
                 },
@@ -49,13 +53,14 @@
               <q-icon name="arrow_drop_down" />
               <q-menu>
                 <q-list dense>
-                  <q-item clickable v-close-popup no-caps>Transportes</q-item>
-                  <q-separator />
-                  <q-item clickable v-close-popup no-caps @click="router.push('/btms')">
-                    <q-item-section> BTMS </q-item-section>
+                  <q-item clickable v-close-popup no-caps  @click="router.push('/')">
+                    <q-item-section> Ínicio </q-item-section>
                   </q-item>
-                  <q-item clickable v-close-popup no-caps @click="router.push('/btmstr')">
-                    <q-item-section> BTMS-TR </q-item-section>
+                  <q-item clickable v-close-popup no-caps @click="scrollToSection('servicos')">
+                    <q-item-section> Serviços </q-item-section>
+                  </q-item>
+                  <q-item clickable v-close-popup no-caps @click="scrollToSection('contato')">
+                    <q-item-section> Contato</q-item-section>
                   </q-item>
                 </q-list>
               </q-menu>
@@ -87,7 +92,7 @@
         <h5>Navegação</h5>
         <ul>
           <li v-for="(item, index) in options" :key="index">
-            <a @click="scrollToSection(tab)">{{ item.label }}</a>
+            <a class="text-white" @click="scrollToSection(item.value)">{{ item.label }}</a>
           </li>
         </ul>
         <h5>Sobre</h5>
@@ -103,8 +108,13 @@
         </p>
         <p>centroautomotivomattos@gmail.com</p>
         <div class="row items-center">
-          <q-img src="../assets/icon_wpp.webp" style="width: 20px" fit="contain" />
+          <q-img  class="white-filter" :src="icon_wpp" style="width: 20px" fit="contain" />
           <p class="q-ma-none q-pl-xs">(67) 3351-6211</p>
+        </div>
+        <div class="q-mt-sm row items-center">
+          <q-img  class="white-filter" :src="icon_insta" style="width: 20px" fit="contain" />
+          <a class="text-white q-pl-xs" href="https://www.instagram.com/mattos.centroautomotivo/" target="_blank">mattos.centroautomotivo</a>
+          
         </div>
       </div>
     </div>
@@ -122,12 +132,7 @@
   <span v-if="scrolled">
     <div class="button-whats">
       <q-btn round color="green" @click="openWhatsApp">
-        <q-img
-          class="white-filter"
-          src="../assets/icon_wpp.webp"
-          style="width: 20px"
-          fit="contain"
-        />
+        <q-img class="white-filter" :src="icon_wpp" style="width: 20px" fit="contain" />
       </q-btn>
     </div>
   </span>
@@ -136,6 +141,10 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
+//import logo1 from 'src/assets/images/logo/logo_cam_1.png'
+import logo2 from 'src/assets/images/logo/logo_cam_2.png'
+import icon_wpp from 'src/assets/images/icons/icon_wpp.webp'
+import icon_insta from 'src/assets/images/icons/instagram.png'
 
 const toggleColor = ref('white')
 const router = useRouter()
@@ -143,7 +152,7 @@ const anoAtual = ref(new Date().getFullYear())
 const scrolled = ref(false)
 const tab = ref('home')
 const options = [
-  { label: 'Home', value: 'hero' },
+  { label: 'Ínicio', value: 'hero' },
   { label: 'Serviços', value: 'servicos' },
   { label: 'Contato', value: 'contato' },
 ]
@@ -202,6 +211,16 @@ const backHome = () => {
 }
 </script>
 <style lang="scss" scoped>
+.logo-filter-white {
+  filter: brightness(1) invert(1); // deixa a imagem branca
+  transition: filter 0.3s ease;
+}
+
+.logo-normal {
+  filter: none;
+  transition: filter 0.3s ease;
+}
+
 .header {
   position: fixed;
   top: 10px;
