@@ -56,7 +56,7 @@ export default defineConfig((/* ctx */) => {
       // minify: false,
       // polyfillModulePreload: true,
       // distDir
-      distDir: 'dist/spa',
+      //distDir: 'dist/spa',
 
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
