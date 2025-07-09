@@ -9,7 +9,7 @@
               flat
               no-caps
               @click="router.push('/')"
-              v-if="!$q.screen.xs"
+              
               style="padding-left: 0"
               @click.prevent="backHome()"
             >
@@ -256,6 +256,7 @@ const backHome = () => {
   }
   &.home-button {
     border-color: $primary;
+    background-color: #fff;
     color: $primary;
   }
 }

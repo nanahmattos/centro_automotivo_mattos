@@ -3,12 +3,8 @@
     <p class="text-center title-primary text-white">Principais Serviços</p>
     <div class="card-container container row">
       <q-card v-for="(item, id) in servicos" :key="id" class="card items-center">
-        <q-card-section class="justify-center flex q-pa-none">
-          
-            
+        <q-card-section class="justify-center flex q-pa-none">           
             <q-img :src="item.icon" fit="cover" class="card-img" />
-          
-
           <div class="content">
             <p class="title-secondary text-white">{{ item.title }}</p>
             <p class="texto-primary text-white">{{ item.texto }}</p>
