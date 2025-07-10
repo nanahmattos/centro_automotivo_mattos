@@ -1,6 +1,6 @@
 <template>
   <div class="bg-hero">
-    <div class="row container text-white justify-around items-center full-height full-width margin-header">
+    <div class="row container text-white justify-around items-center full-height margin-header">
       <div class="col-xs-12 col-sm-4 flex column items-start q-pa-md">
         <p class="title-secondary">Mais de 25 anos no mercado</p>
         <p class="">
@@ -34,7 +34,7 @@
   background-image: url('src/assets/images/bg-hero.png');
   width: 100%;
   background-color: $dark;
-  min-height: 400px; // ocupa a altura da tela inteira
+  min-height: 400px;
   display: flex;
   align-items: center;
 }
