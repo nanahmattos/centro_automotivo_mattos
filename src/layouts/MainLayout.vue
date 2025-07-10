@@ -200,7 +200,7 @@ const handleScroll = () => {
 }
 const openWhatsApp = () => {
   if (typeof window !== 'undefined') {
-    window.open('https://wa.me/5567984113872', '_blank')
+    window.open('https://wa.me/556733516211', '_blank')
   }
 }
 const backHome = () => {
