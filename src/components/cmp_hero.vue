@@ -17,14 +17,26 @@
           <p class="">
             Solicite seu orçamento sem compromisso. Nossa equipe está pronta para ajudar você!
           </p>
-          <q-btn icon-right="arrow_forward" class="button-primary   q-mt-sm">Solicitar orçamento</q-btn>
+          <q-btn
+            icon-right="arrow_forward"
+            class="button-primary q-mt-sm"
+            color="primary"
+            @click="openWhatsApp"
+            >Solicitar orçamento</q-btn
+          >
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const openWhatsApp = () => {
+  if (typeof window !== 'undefined') {
+    window.open('https://wa.me/556733516211', '_blank')
+  }
+}
+</script>
 <style lang="scss" scoped>
 .texto-verde {
   color: $primary;
@@ -45,7 +57,7 @@
   border-radius: 8px;
   backdrop-filter: blur(6px);
 }
-@media(max-width: 600px) {
+@media (max-width: 600px) {
   .margin-header {
     margin-top: 70px;
   }

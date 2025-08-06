@@ -1,10 +1,10 @@
 <template>
   <div class="bg-primary q-py-md">
     <p class="text-center text-white title-primary">O que estão falando ?</p>
-    <div class="card-container row">
-      <q-card v-for="(depoimento, index) in depoimentos" :key="index" class="card items-center">
-        <q-card-section class="justify-center flex">
-          <span class="row q-pa-sm">
+    <div class="card-container items-stretch row">
+      <q-card v-for="(depoimento, index) in depoimentos" :key="index" class="card">
+        <q-card-section>
+          <span class="row justify-center q-pa-sm">
             <q-icon name="star" color="yellow" size="xs" />
             <q-icon name="star" color="yellow" size="xs" />
             <q-icon name="star" color="yellow" size="xs" />
@@ -12,7 +12,7 @@
             <q-icon name="star" color="yellow" size="xs" />
           </span>
           <p class="text-bold">{{ depoimento.title }}</p>
-          <p class="text-secondary">
+          <p class="texto-secondary">
             {{ depoimento.texto }}
           </p>
         </q-card-section>
@@ -59,7 +59,6 @@ const depoimentos = ref([
   max-width: 200px;
   width: 100%;
   margin: 10px;
-  align-items: stretch;
   border-radius: 25px;
   text-align: center;
 
@@ -68,6 +67,11 @@ const depoimentos = ref([
     max-height: 200px;
     height: 100%;
     width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .card {
+    max-width: 300px;
   }
 }
 </style>

@@ -9,7 +9,6 @@
               flat
               no-caps
               @click="router.push('/')"
-              
               style="padding-left: 0"
               @click.prevent="backHome()"
             >
@@ -41,7 +40,7 @@
             <q-btn
               :class="[
                 'active-button',
-                { 
+                {
                   'home-button': $route.name === 'home',
                   scrolled: scrolled,
                 },
@@ -53,7 +52,7 @@
               <q-icon name="arrow_drop_down" />
               <q-menu>
                 <q-list dense>
-                  <q-item clickable v-close-popup no-caps  @click="router.push('/')">
+                  <q-item clickable v-close-popup no-caps @click="router.push('/')">
                     <q-item-section> Ínicio </q-item-section>
                   </q-item>
                   <q-item clickable v-close-popup no-caps @click="scrollToSection('servicos')">
@@ -108,13 +107,17 @@
         </p>
         <p>centroautomotivomattos@gmail.com</p>
         <div class="row items-center">
-          <q-img  class="white-filter" :src="icon_wpp" style="width: 20px" fit="contain" />
+          <q-img class="white-filter" :src="icon_wpp" style="width: 20px" fit="contain" />
           <p class="q-ma-none q-pl-xs">(67) 3351-6211</p>
         </div>
         <div class="q-mt-sm row items-center">
-          <q-img  class="white-filter" :src="icon_insta" style="width: 20px" fit="contain" />
-          <a class="text-white q-pl-xs" href="https://www.instagram.com/mattos.centroautomotivo/" target="_blank">mattos.centroautomotivo</a>
-          
+          <q-img class="white-filter" :src="icon_insta" style="width: 20px" fit="contain" />
+          <a
+            class="text-white q-pl-xs"
+            href="https://www.instagram.com/mattos.centroautomotivo/"
+            target="_blank"
+            >mattos.centroautomotivo</a
+          >
         </div>
       </div>
     </div>
@@ -129,7 +132,7 @@
       <q-btn icon="north" round color="primary" @click.prevent="backHome()" />
     </div>
   </span>
-  <span v-if="scrolled">
+  <span>
     <div class="button-whats">
       <q-btn round color="green" @click="openWhatsApp">
         <q-img class="white-filter" :src="icon_wpp" style="width: 20px" fit="contain" />
@@ -305,5 +308,11 @@ const backHome = () => {
 .white-filter {
   width: 20px;
   filter: brightness(0) invert(1);
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding: 0 10vw;
+  }
 }
 </style>
