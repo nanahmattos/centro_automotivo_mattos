@@ -2,6 +2,15 @@ import { defineRouter } from '#q-app/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
 
+const GA_MEASUREMENT_ID = 'G-GBC9ECP80Y'
+
+function trackPageView(path) {
+  if (typeof window === 'undefined' || typeof window.gtag !== 'function') return
+  window.gtag('config', GA_MEASUREMENT_ID, {
+    page_path: path,
+  })
+}
+
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;
@@ -25,6 +34,12 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE)
   })
+
+  if (!process.env.SERVER) {
+    Router.afterEach((to) => {
+      trackPageView(to.fullPath)
+    })
+  }
 
   return Router
 })
