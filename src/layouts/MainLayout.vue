@@ -1,71 +1,70 @@
 <template>
   <q-layout>
     <q-header :class="{ 'solid-background': scrolled }" class="header container">
-      <q-toolbar class="justify-between">
-        <div class="row items-center">
-          <!-- logo -->
-          <div>
-            <q-btn
-              flat
-              no-caps
-              @click="router.push('/')"
-              style="padding-left: 0"
-              @click.prevent="backHome()"
-            >
-              <q-img
-                :src="logo2"
-                style="width: 50px"
-                :class="scrolled ? 'logo-filter-white' : 'logo-normal'"
-              />
-            </q-btn>
-          </div>
-
-          <!-- desktop -->
-          <div v-if="!$q.screen.xs">
-            <q-btn-toggle
-              v-model="tab"
-              :toggle-color="toggleColor"
-              flat
-              stretch
-              style="gap: 5px"
-              dense
-              no-caps
-              :options="options"
-              @click="scrollToSection(tab)"
+      <q-toolbar class="justify-between items-center row">
+        <!-- logo -->
+        <div>
+          <q-btn
+            flat
+            no-caps
+            @click="router.push('/')"
+            style="padding-left: 0"
+            @click.prevent="backHome()"
+          >
+            <q-img
+              :src="logo2"
+              style="width: 50px"
+              :class="scrolled ? 'logo-filter-white' : 'logo-normal'"
             />
-          </div>
-
-          <!-- mobile -->
-          <div v-else>
-            <q-btn
-              :class="[
-                'active-button',
-                {
-                  'home-button': $route.name === 'home',
-                  scrolled: scrolled,
-                },
-              ]"
-              no-caps
-              flat
-            >
-              Menu
-              <q-icon name="arrow_drop_down" />
-              <q-menu>
-                <q-list dense>
-                  <q-item clickable v-close-popup no-caps @click="router.push('/')">
-                    <q-item-section> Ínicio </q-item-section>
-                  </q-item>
-                  <q-item clickable v-close-popup no-caps @click="scrollToSection('servicos')">
-                    <q-item-section> Serviços </q-item-section>
-                  </q-item>
-                  <q-item clickable v-close-popup no-caps @click="scrollToSection('contato')">
-                    <q-item-section> Contato</q-item-section>
-                  </q-item>
-                </q-list>
-              </q-menu>
-            </q-btn>
-          </div>
+          </q-btn>
         </div>
+
+        <!-- desktop -->
+        <div v-if="!$q.screen.xs">
+          <q-btn-toggle
+            v-model="tab"
+            :toggle-color="toggleColor"
+            flat
+            stretch
+            style="gap: 5px"
+            dense
+            no-caps
+            :options="options"
+            @click="scrollToSection(tab)"
+          />
+        </div>
+
+        <!-- mobile -->
+        <div v-else>
+          <q-btn
+            :class="[
+              'active-button',
+              {
+                'home-button': $route.name === 'home',
+                scrolled: scrolled,
+              },
+            ]"
+            no-caps
+            flat
+          >
+            Menu
+            <q-icon name="arrow_drop_down" />
+            <q-menu>
+              <q-list dense>
+                <q-item clickable v-close-popup no-caps @click="router.push('/')">
+                  <q-item-section> Ínicio </q-item-section>
+                </q-item>
+                <q-item clickable v-close-popup no-caps @click="scrollToSection('servicos')">
+                  <q-item-section> Serviços </q-item-section>
+                </q-item>
+                <q-item clickable v-close-popup no-caps @click="scrollToSection('contato')">
+                  <q-item-section> Contato</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
+        </div>
+
         <div>
           <q-btn
             no-caps
